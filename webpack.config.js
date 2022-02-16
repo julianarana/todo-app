@@ -4,7 +4,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var config = {
   entry: ['./src/app.tsx'],
   output: {
-    path: path.resolve(__dirname, 'builf'),
+    path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
   },
   resolve: {
@@ -14,6 +14,7 @@ var config = {
   devServer: {
     static: './build',
     hot: true,
+    historyApiFallback: true,
   },
   module: {
     rules: [
@@ -29,9 +30,6 @@ var config = {
       template: 'src/index.html',
     }),
   ],
-  jest: {
-    
-  },
 };
 
 module.exports = config;

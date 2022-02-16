@@ -20,10 +20,5 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
-  "exclude": [
-    "node_modules",
-    "public",
-    "**/*.test.tsx",
-    "**/*.test.ts"
-  ]
+  "exclude": ["node_modules", "public", "**/*.test.tsx", "**/*.test.ts"]
 }
