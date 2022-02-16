@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
+import AppState from './reducers';
 import Pages from './pages';
 
 const GlobalStyle = createGlobalStyle`
@@ -19,12 +22,18 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const store = createStore(AppState);
+
+console.log('The Store', store);
+
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <GlobalStyle />
-      <Pages />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <GlobalStyle />
+        <Pages />
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root'),
 );
