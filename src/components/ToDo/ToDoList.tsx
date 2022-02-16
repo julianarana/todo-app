@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 import { ToDoElement } from '../../types';
 import styled from 'styled-components';
+import { ToDoListElement } from './ToDoListElement';
 
 interface ToDoListProps {
   list: ToDoElement[];
@@ -45,15 +46,7 @@ export const ToDoList = ({ list }: ToDoListProps): ReactElement => {
   return (
     <ListWrapper>
       {list.map((element) => (
-        <ListElementWrapper
-          key={element.id}
-          isComplete={element.isComplete}
-          isDue={false}
-          onClick={() => elementClicked(element.id)}
-        >
-          <input type="checkbox" checked={element.isComplete} />
-          {element.description} <DateWrapper>{element.dueData}</DateWrapper>
-        </ListElementWrapper>
+        <ToDoListElement element={element} key={element.id} />
       ))}
     </ListWrapper>
   );
