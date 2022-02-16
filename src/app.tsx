@@ -7,6 +7,7 @@ import Pages from './pages';
 const GlobalStyle = createGlobalStyle`
   :root {
     --color-dark-blue: #383e54;
+    --color-dark-gray: #333;
     --color-white: #fff;
     --color-red: #ffcbcc;
     --color-gray: #f3f3f3;
