@@ -2,7 +2,7 @@ import { ToDoElement } from '../types';
 
 export const isDue = (date: Date | null) => {
   if (date) {
-    return date.getTime() < Date.now();
+    return date.getTime() < (new Date()).getTime();
   }
   return false;
 };
