@@ -14,9 +14,6 @@ export const getToDos = (): Promise<ToDoElement[]> => {
   });
 
   return fetch(request).then((response) => response.json());
-  //.then((results) => console.log(xresults))
-  //.catch((err) => console.error(err));
-  return Promise.resolve([]);
 };
 
 export const updateTodo = (todo: ToDoElement): void => {};

@@ -48,12 +48,18 @@ export const ToDoListElement = ({
 
   return (
     <ListElementWrapper
-      key={element.id}
       isComplete={element.isComplete}
       isDue={isOverDue}
       onClick={onClick}
+      data-testid={`wrapper-${element.id}`}
+      role="button"
     >
-      <input type="checkbox" checked={element.isComplete} />
+      <input
+        type="checkbox"
+        checked={element.isComplete}
+        data-testid={`checkbox-${element.id}`}
+        onChange={() => onClick()}
+      />
       {element.description}{' '}
       {date && <DateWrapper>{formatDate(date)}</DateWrapper>}
     </ListElementWrapper>

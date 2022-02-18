@@ -3,11 +3,19 @@ import { ToDoElement } from '../../types';
 import styled from 'styled-components';
 import { ToDoListElement } from './ToDoListElement';
 import { sortElements } from '../../utils';
+import { AppState } from '../../reducers';
+import { connect } from 'react-redux';
+import { updateTodoAction } from '../../actions';
 
-interface ToDoListProps {
-  list: ToDoElement[];
-  updateElement: (element: ToDoElement) => void;
+interface StateProps {
+  todos: ToDoElement[];
 }
+
+interface DispatchProps {
+  updateElement: (todo: ToDoElement) => void;
+}
+
+type ToDoListProps = StateProps & DispatchProps;
 
 const ListWrapper = styled.ul`
   list-style: none;
@@ -17,11 +25,8 @@ const ListWrapper = styled.ul`
   margin: auto;
 `;
 
-export const ToDoList = ({
-  list,
-  updateElement,
-}: ToDoListProps): ReactElement => {
-  const sortedList = useMemo(() => sortElements(list), [list]);
+const ToDoList = ({ todos, updateElement }: ToDoListProps): ReactElement => {
+  const sortedList = useMemo(() => sortElements(todos), [todos]);
 
   return (
     <ListWrapper>
@@ -35,3 +40,22 @@ export const ToDoList = ({
     </ListWrapper>
   );
 };
+
+const mapStateToProps = (state: AppState): StateProps => ({
+  todos: state.state.todos,
+});
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    updateElement: (todo: ToDoElement) => {
+      dispatch(updateTodoAction(todo));
+    },
+  };
+};
+
+const wrappedTodoList = connect<StateProps, DispatchProps, {}, AppState>(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ToDoList);
+
+export { wrappedTodoList as ToDoList, ToDoList as UnwrappedTodoList };

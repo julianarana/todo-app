@@ -24,8 +24,6 @@ const GlobalStyle = createGlobalStyle`
 
 const store = createStore(AppState);
 
-console.log('The Store', store);
-
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

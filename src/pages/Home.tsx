@@ -1,56 +1,38 @@
 import React, { ReactElement, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { setTodosAction, updateTodoAction } from '../actions';
+import { setTodosAction } from '../actions';
 import { ToDoList } from '../components/ToDo';
 import { AppState } from '../reducers';
 import { getToDos } from '../services/ToDo';
 import { ToDoElement } from '../types';
 
-interface StateProps {
-  todos: ToDoElement[];
-}
-
 interface DispatchProps {
-  updateTodo: (todo: ToDoElement) => void;
   setTodos: (todos: ToDoElement[]) => void;
 }
 
-type HomeProps = StateProps & DispatchProps;
+type HomeProps = DispatchProps;
 
-const Home = ({ todos, updateTodo, setTodos }: HomeProps): ReactElement => {
-  console.log('Received props', todos);
+const Home = ({ setTodos }: HomeProps): ReactElement => {
   useEffect(() => {
     getToDos().then((results: ToDoElement[]) => setTodos(results));
   }, []);
 
-  const updateElement = (element: ToDoElement): void => {
-    console.log('Will update this state', element);
-    updateTodo({ ...element, isComplete: !element.isComplete });
-  };
-
   return (
     <div>
-      <ToDoList list={todos} updateElement={updateElement} />
+      <ToDoList />
     </div>
   );
 };
 
-const mapStateToProps = (state: AppState): StateProps => ({
-  todos: state.state.todos,
-});
-
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    updateTodo: (todo: ToDoElement) => {
-      dispatch(updateTodoAction(todo));
-    },
     setTodos: (todos: ToDoElement[]) => {
       dispatch(setTodosAction(todos));
     },
   };
 };
 
-export default connect<StateProps, DispatchProps, {}, AppState>(
-  mapStateToProps,
+export default connect<{}, DispatchProps, {}, AppState>(
+  null,
   mapDispatchToProps,
 )(Home);
