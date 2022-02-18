@@ -30,11 +30,13 @@ const ToDoList = ({ todos, updateElement }: ToDoListProps): ReactElement => {
 
   return (
     <ListWrapper>
-      {sortedList.map((element) => (
+      {sortedList.map((element,) => (
         <ToDoListElement
           element={element}
           key={element.id}
-          onClick={() => updateElement(element)}
+          onClick={() => {
+            updateElement({ ...element, isComplete: !element.isComplete });
+          }}
         />
       ))}
     </ListWrapper>
